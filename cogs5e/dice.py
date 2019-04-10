@@ -14,7 +14,7 @@ from utils.argparser import argparse
 from utils.functions import fuzzy_search, a_or_an, verbose_stat, camel_to_title
 
 
-class Dice:
+class Dice(commands.Cog):
     """Dice and math related commands."""
 
     def __init__(self, bot):
