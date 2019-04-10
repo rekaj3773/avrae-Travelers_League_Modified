@@ -26,7 +26,8 @@ prefix = '!' if not TESTING else '#'
 DYNAMIC_COGS = ["cogs5e.dice", "cogs5e.charGen", "cogs5e.homebrew", "cogs5e.lookup", "cogs5e.pbpUtils",
                 "cogs5e.gametrack", "cogs5e.initTracker", "cogs5e.sheetManager", "cogsmisc.customization"]
 STATIC_COGS = ["cogsmisc.core", "cogsmisc.publicity", "cogsmisc.stats", "cogsmisc.repl", "cogsmisc.adminUtils",
-               "cogsmisc.permissions", "utils.help"]
+               "cogsmisc.permissions",# "utils.help"
+                ]
 
 
 def get_prefix(b, message):
