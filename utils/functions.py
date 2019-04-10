@@ -82,7 +82,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     :param strict: Kinda does nothing. I'm not sure why this is here.
     :returns: A two-tuple (result, strict) or None"""
     # full match, return result
-    str = raw_input("barbed")
+    str = "barbed"
     print("Value: " + value + "\n")
     print("Key: " + key + "\n")
     print("List: " + list_to_search + "\n")
