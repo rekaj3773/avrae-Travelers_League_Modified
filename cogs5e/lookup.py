@@ -11,7 +11,6 @@ import discord
 from discord.ext import commands
 
 from cogs5e.funcs.lookupFuncs import HOMEBREW_EMOJI, HOMEBREW_ICON, c, select_monster_full, select_spell_full
-from cogs5e.funcs.lookup_ml import ml_spell_search
 from cogs5e.models.embeds import EmbedWithAuthor, add_homebrew_footer
 from cogs5e.models.errors import NoActiveBrew
 from cogs5e.models.homebrew.pack import Pack
@@ -540,7 +539,7 @@ class Lookup(commands.Cog):
 
         self.bot.rdb.incr('spells_looked_up_life')
 
-        spell, metadata = await select_spell_full(ctx, name, search_func=ml_spell_search, return_metadata=True)
+        spell, metadata = await select_spell_full(ctx, name)
 
         metadata['homebrew'] = spell.source == 'homebrew'
         await self.add_training_data("spell", name, spell.name, metadata=metadata)
