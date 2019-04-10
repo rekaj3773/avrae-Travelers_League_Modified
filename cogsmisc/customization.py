@@ -108,7 +108,7 @@ class Customization(commands.Cog):
         args = []
         while not view.eof:
             view.skip_ws()
-            args.append(quoted_word(view))
+            args.append(view.get_quoted_word())
         tempargs = args[:]
         new_command = command
         if '%*%' in command:
