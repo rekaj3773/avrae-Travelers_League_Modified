@@ -12,7 +12,7 @@ import uuid
 import discord
 from discord.ext import commands
 from discord.ext.commands import BucketType, UserInputError
-from discord.ext.commands.view import StringView, quoted_word
+from discord.ext.commands.view import StringView
 
 from cogs5e.funcs import scripting
 from cogs5e.funcs.scripting import ScriptingEvaluator
