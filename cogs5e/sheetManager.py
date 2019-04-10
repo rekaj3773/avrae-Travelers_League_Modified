@@ -37,7 +37,7 @@ from utils.functions import camel_to_title, extract_gsheet_id_from_url, generate
 log = logging.getLogger(__name__)
 
 
-class SheetManager:
+class SheetManager(commands.Cog):
     """Commands to import a character sheet from [Dicecloud](https://dicecloud.com),
     a [Google Sheet](https://gsheet.avrae.io), or a D&D Beyond PDF."""
 
