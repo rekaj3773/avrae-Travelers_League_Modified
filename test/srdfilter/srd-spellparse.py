@@ -4,7 +4,7 @@ import json
 def main():
     with open('spells.json') as f:
         spells = json.load(f)
-    with open('srd-spells.txt') as f:
+    with open('spells.txt') as f:
         srd = [s.strip() for s in f.read().split('\n')]
 
     for spell in spells:

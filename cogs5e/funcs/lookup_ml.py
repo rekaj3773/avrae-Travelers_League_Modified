@@ -7,7 +7,7 @@ from fuzzywuzzy import fuzz, process
 
 from cogs5e.funcs.lookupFuncs import c
 
-MODEL_NAME = "srd-spells"
+MODEL_NAME = "spells"
 ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyz '"
 INPUT_LENGTH = 16
 
