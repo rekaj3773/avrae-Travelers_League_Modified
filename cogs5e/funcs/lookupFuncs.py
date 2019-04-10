@@ -28,9 +28,9 @@ class Compendium:
             self.conditions = json.load(f)
         with open('./res/rules.json', 'r') as f:
             self.rules = json.load(f)
-        with open('./res/srd-feats.json', 'r') as f:
+        with open('./res/feats.json', 'r') as f:
             self.feats = json.load(f)
-        with open('./res/srd-races.json', 'r') as f:
+        with open('./res/races.json', 'r') as f:
             _raw = json.load(f)
             self.rfeats = []
             self.fancyraces = [Race.from_data(r) for r in _raw]
@@ -38,21 +38,21 @@ class Compendium:
                 for entry in race['entries']:
                     if isinstance(entry, dict) and 'name' in entry:
                         temp = {'name': "{}: {}".format(race['name'], entry['name']),
-                                'text': parse_data_entry(entry['entries']), 'srd': race['srd']}
+                                'text': parse_data_entry(entry['entries'])}
                         self.rfeats.append(temp)
-        with open('./res/srd-classes.json', 'r') as f:
+        with open('./res/classes.json', 'r') as f:
             self.classes = json.load(f)
-        with open('./res/srd-classfeats.json') as f:
+        with open('./res/classfeats.json') as f:
             self.cfeats = json.load(f)
-        with open('./res/srd-bestiary.json', 'r') as f:
+        with open('./res/bestiary.json', 'r') as f:
             self.monsters = json.load(f)
             self.monster_mash = [Monster.from_data(m) for m in self.monsters]
-        with open('./res/srd-spells.json', 'r') as f:
+        with open('./res/spells.json', 'r') as f:
             self.spells = [Spell.from_data(r) for r in json.load(f)]
-        with open('./res/srd-items.json', 'r') as f:
+        with open('./res/items.json', 'r') as f:
             _items = json.load(f)
             self.items = [i for i in _items if i.get('type') is not '$']
-        with open('./res/srd-backgrounds.json', 'r') as f:
+        with open('./res/backgrounds.json', 'r') as f:
             self.backgrounds = [Background.from_data(b) for b in json.load(f)]
         self.subclasses = self.load_subclasses()
         with open('./res/itemprops.json', 'r') as f:
