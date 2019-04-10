@@ -16,7 +16,7 @@ log = logging.getLogger(__name__)
 DBL_API = "https://discordbots.org/api/bots/"
 
 
-class Publicity(commands.Cog):
+class Publicity():
     """
     Sends updates to bot repos.
     """
