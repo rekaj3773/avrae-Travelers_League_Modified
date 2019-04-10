@@ -249,4 +249,4 @@ if __name__ == '__main__':
     bot.state = "run"
     if not bot.rdb.exists('build_num'): bot.rdb.set('build_num', 114)  # this was added in build 114
     bot.rdb.incr('build_num')
-    bot.run(bot.credentials.testToken)
+    bot.run(bot.credentials.token)
