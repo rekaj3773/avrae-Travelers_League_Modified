@@ -39,7 +39,7 @@ def get_prefix(b, message):
 class Avrae(commands.AutoShardedBot):
     def __init__(self, prefix, formatter=None, description=None, pm_help=False, testing=False,
                  **options):
-        super(Avrae, self).__init__(prefix, formatter, description, pm_help, **options)
+        super(Avrae, self).__init__(prefix, formatter, description, **options)
         self.remove_command("help")
         self.testing = testing
         self.state = "init"
