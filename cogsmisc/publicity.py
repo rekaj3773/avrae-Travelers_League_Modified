@@ -10,6 +10,7 @@ import time
 import aiohttp
 
 import credentials
+from discord.ext import commands
 
 log = logging.getLogger(__name__)
 
