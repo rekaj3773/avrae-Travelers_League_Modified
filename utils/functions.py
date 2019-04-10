@@ -84,7 +84,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     # full match, return result
     str = "barbed"
     print("Value: " + value + "\n")
-    print("Key: " + key + "\n")
+    # print("Key: " + key + "\n")
     print("List: " + list_to_search + "\n")
     result = next((a for a in list_to_search if value.lower() == key(a).lower()), None)
     if result is None:
