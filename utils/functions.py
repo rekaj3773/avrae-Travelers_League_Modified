@@ -82,7 +82,8 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     :param strict: Kinda does nothing. I'm not sure why this is here.
     :returns: A two-tuple (result, strict) or None"""
     # full match, return result
-    result = next((a for a in list_to_search if value.lower() == key(a).lower()), None)
+    testStr = "barbed"
+    result = next((a for a in list_to_search if value.lower() == testStr(a).lower()), None)
     if result is None:
         partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
         if len(partial_matches) > 1 or not partial_matches:
