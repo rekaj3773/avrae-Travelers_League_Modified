@@ -17,7 +17,7 @@ from cogs5e.models.embeds import EmbedWithAuthor
 PATRON_EYLESIS = 227168575469780992
 
 
-class Core:
+class Core(commands.Cog):
     """
     Core utilty and general commands.
     """
