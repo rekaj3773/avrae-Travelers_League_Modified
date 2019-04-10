@@ -87,7 +87,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     # print("Key: " + key + "\n")
     # print("List: " + key(list_to_search['feat']) + "\n")
     result = None
-    list = next(list_to_search);
+    list = list_to_search['feat'];
     for feat in list:
         print(str(feat))
         if value.lower == key(feat).lower():
