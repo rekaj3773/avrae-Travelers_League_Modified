@@ -85,7 +85,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     # str = "barbed"
     print("Value: " + value + "\n")
     # print("Key: " + key + "\n")
-    print("List: " + key(list_to_search["feat"]) + "\n")
+    print("List: " + key(list_to_search['feat']) + "\n")
     result = next((a for a in list_to_search if value.lower() == key(a).lower()), None)
     if result is None:
         partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
