@@ -98,6 +98,7 @@ class Lookup(commands.Cog):
         pm = guild_settings.get("pm_result", False)
         destination = ctx.author if pm else ctx.channel
 
+        print("What the cluck \n")
         result, metadata = await search_and_select(ctx, c.feats, name, lambda e: e["feat"]["name"], return_metadata=True)
         await self.add_training_data("feat", name, result['name'], metadata=metadata)
 
