@@ -49,7 +49,7 @@ class Core(commands.Cog):
         pong = await ctx.send("Pong.")
         delta = datetime.utcnow() - now
         msec = floor(delta.total_seconds() * 1000)
-        await pong.edit(content="Pong.\nPing = {} ms.".format(msec))
+        # await pong.edit(content="Pong.\nPing = {} ms.".format(msec))
 
     @commands.command()
     async def invite(self, ctx):
