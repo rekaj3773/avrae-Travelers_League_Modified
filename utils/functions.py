@@ -93,6 +93,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     #     if value.lower == key(feat).lower():
     #         result = feats
     # result = next((a for a in list_to_search if value.lower() == key(a).lower()), None)
+    print('[%s]' % ', ' . join(map(str,mylist)))
     if result is None:
         partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
         if len(partial_matches) > 1 or not partial_matches:
@@ -155,15 +156,13 @@ async def search_and_select(ctx, list_to_search: list, value, key, cutoff=5, ret
 
     key = lambda e: e[key]
 
-    print ("marker 0?")
+
     if asyncio.iscoroutinefunction(search_func):
-        print("marker 1")
         result = await search_func(list_to_search, value, key, cutoff, return_key)
-        print("marker 1.2")
+
     else:
         print("marker 2")
         result = search_func(list_to_search, value, key, cutoff, return_key)
-        print("marker 2.2")
 
     if result is None:
         print("what the cluck?")
