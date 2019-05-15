@@ -158,6 +158,7 @@ async def search_and_select(ctx, list_to_search: list, value, key, cutoff=5, ret
         result = search_func(list_to_search, value, key, cutoff, return_key)
 
     if result is None:
+        print("what the cluck?")
         raise NoSelectionElements("No matches found.")
     strict = result[1]
     results = result[0]
