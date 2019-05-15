@@ -100,7 +100,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     # print(new_key(list_to_search[0]))
 
     if result is None:
-        partial_matches = [a for a in list_to_search if value.lower() in new_key(a).lower()]
+        partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
         if len(partial_matches) > 1 or not partial_matches:
             names = [key(d) for d in list_to_search]
             fuzzy_map = {key(d): d for d in list_to_search}
