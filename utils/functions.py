@@ -88,10 +88,10 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     # print("List: " + key(list_to_search['feat']) + "\n")
     result = None
     # list = list_to_search['feat'];
-    for feat in list:
-        print(str(feat))
-        if value.lower == key(feat).lower():
-            result = feats
+    # for feat in list:
+    #     print(str(feat))
+    #     if value.lower == key(feat).lower():
+    #         result = feats
     # result = next((a for a in list_to_search if value.lower() == key(a).lower()), None)
     if result is None:
         partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
