@@ -152,6 +152,9 @@ async def search_and_select(ctx, list_to_search: list, value, key, cutoff=5, ret
     if search_func is None:
         search_func = search
 
+    print(key)
+    print("WTF is going on?")
+
     key = lambda e: e[key]
 
     if asyncio.iscoroutinefunction(search_func):
