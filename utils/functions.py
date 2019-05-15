@@ -94,7 +94,6 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
     #         result = feats
     # result = next((a for a in list_to_search if value.lower() == key(a).lower()), None)
     print(type(list_to_search))
-    print(list_to_search)
     if result is None:
         partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
         if len(partial_matches) > 1 or not partial_matches:
