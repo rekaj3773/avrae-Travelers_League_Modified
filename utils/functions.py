@@ -152,7 +152,7 @@ async def search_and_select(ctx, list_to_search: list, value, key, cutoff=5, ret
     if search_func is None:
         search_func = search
 
-    key = "name"
+    key = lambda e: e[key]
 
     if asyncio.iscoroutinefunction(search_func):
         result = await search_func(list_to_search, value, key, cutoff, return_key)
