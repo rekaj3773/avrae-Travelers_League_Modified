@@ -109,9 +109,9 @@ class Lookup(commands.Cog):
             embed.add_field(name="Ability Improvement",
                             value=f"Increase your {result['ability']} score by 1, up to a maximum of 20.")
         _name = 'Description'
-        for piece in [result['desc'][i:i + 1024] for i in range(0, len(result['desc']), 1024)]:
-            embed.add_field(name=_name, value=piece)
-            _name = '** **'
+        # for piece in [result['desc'][i:i + 1024] for i in range(0, len(result['desc']), 1024)]:
+        #     embed.add_field(name=_name, value=piece)
+        #     _name = '** **'
         embed.set_footer(text=f"Feat | {result['source']} {result['page']}")
         await destination.send(embed=embed)
 
