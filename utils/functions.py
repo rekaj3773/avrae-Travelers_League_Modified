@@ -157,6 +157,8 @@ async def search_and_select(ctx, list_to_search: list, value, key, cutoff=5, ret
 
     key = lambda e: e[key]
 
+    print("Does it just die or is python error reporting just fucking shit?")
+
     if asyncio.iscoroutinefunction(search_func):
         result = await search_func(list_to_search, value, key, cutoff, return_key)
     else:
