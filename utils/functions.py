@@ -96,6 +96,7 @@ def search(list_to_search: list, value, key, cutoff=5, return_key=False, strict=
 
     list_to_search = [elem[0] for elem in list_to_search.values()]
     print(list_to_search[0]["name"])
+    print(key(list_to_search[0]))
 
     if result is None:
         partial_matches = [a for a in list_to_search if value.lower() in key(a).lower()]
