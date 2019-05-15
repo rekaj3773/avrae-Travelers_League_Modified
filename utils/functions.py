@@ -152,17 +152,18 @@ async def search_and_select(ctx, list_to_search: list, value, key, cutoff=5, ret
     if search_func is None:
         search_func = search
 
-    print(key)
-    print("WTF is going on?")
 
     key = lambda e: e[key]
 
-    print("Does it just die or is python error reporting just fucking shit?")
 
     if asyncio.iscoroutinefunction(search_func):
+        print("marker 1")
         result = await search_func(list_to_search, value, key, cutoff, return_key)
+        print("marker 1.2")
     else:
+        print("marker 2")
         result = search_func(list_to_search, value, key, cutoff, return_key)
+        print("marker 2.2")
 
     if result is None:
         print("what the cluck?")
