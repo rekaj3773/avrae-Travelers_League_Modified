@@ -769,7 +769,7 @@ class Spell:
     @classmethod
     def from_data(cls, data):  # local JSON
         data["range_"] = data.pop("range")  # ignore this
-        data["automation"] = Automation.from_data(data["automation"])
+        # data["automation"] = Automation.from_data(data["automation"])
         return cls(**data)
 
     @classmethod
