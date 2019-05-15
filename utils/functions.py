@@ -298,6 +298,7 @@ async def get_selection(ctx, choices, delete=True, return_name=False, pm=False, 
         if len(choices):
             return choices[0][1] if not return_name else choices[0]
         else:
+            print("what the cluck 2?")
             raise NoSelectionElements()
     page = 0
     pages = paginate(choices, 10)
