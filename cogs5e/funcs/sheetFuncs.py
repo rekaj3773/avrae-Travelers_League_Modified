@@ -149,6 +149,7 @@ def sheet_attack(attack, args, embed=None):
                 else:
                     itercrit = 0
 
+        #Todo: Modify this either in function or afterwards
         res = sheet_damage(attack.get('damage'), args, itercrit, dnum)
         out += res['damage']
         if res['roll']:
@@ -198,7 +199,7 @@ def sheet_damage(damage_str, args, itercrit=0, dnum=None):
     neutral = args.get('neutral')
     maxdmg = args.last('max', None, bool)
     mi = args.last('mi', None, int)
-
+    
     if damage_str is None and d:
         damage_str = '0'
     dmgroll = None
