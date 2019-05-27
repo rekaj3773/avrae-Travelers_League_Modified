@@ -39,6 +39,7 @@ class Points(commands.Cog):
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
         get_point_total = self.getPointsByName(name)
+        print(get_point_total)
         get_point_total += int_points
         await self.savePointsByName(name, get_point_total)
 
