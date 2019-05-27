@@ -129,8 +129,8 @@ class SheetManager(commands.Cog):
                 pass  # failed to eval, probably DDB nonsense
 
         print("Dice here??")
-        print(args.last('-dice'))
-        if args.last('-dice') is not None:
+        print(args.last('-dice', "3d6"))
+        if args.last('-dice', "3d6") is not None:
             attack.__setattr__("damage", attack.get("damage") + "+" + args['extraDice'])
 
         result = sheet_attack(attack, args, EmbedWithCharacter(char, name=False))
