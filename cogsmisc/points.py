@@ -39,8 +39,14 @@ class Points(commands.Cog):
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
         original_point_total = await self.getPointsByName(name)
-        print(original_point_total)
         new_point_total = original_point_total + int_points
+        await self.savePointsByName(name, new_point_total, original_point_total)
+
+    @commands.cooldown(1, 5, BucketType.user)
+    async def subtractPoints(self, ctx, name, points):
+        int_points = int(points)
+        original_point_total = await self.getPointsByName(name)
+        new_point_total = original_point_total - int_points
         await self.savePointsByName(name, new_point_total, original_point_total)
 
     async def getPointsByName(self, name):
@@ -58,12 +64,11 @@ class Points(commands.Cog):
         if original_points is None:
             await self.bot.mdb.points.insert_one({"name": name,"points": points})
         else:
-            await self.bot.mdb.points.update_one({"name": name},{"$set": {"points": points}},upsert=True)
+            await self.bot.mdb.points.update_one({"name": name}, {"$set": {"points": points}}, upsert=True)
 
     @commands.command()
     async def showPoints(self, ctx, name):
         point_total = await self.getPointsByName(name)
-        print(point_total)
         await ctx.send("Sup Bitches, you got these many dungeon dollars: $" + str(point_total))
 
 
