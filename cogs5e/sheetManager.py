@@ -127,8 +127,8 @@ class SheetManager(commands.Cog):
             except AvraeException:
                 pass  # failed to eval, probably DDB nonsense
 
-        if args.last('dice', "3d6", str) is not None:
-            attack["damage"] = (attack.get("damage") + "+" + args.last('dice', "3d6", str))
+        if args.last('dice') is not None:
+            attack["damage"] = (attack.get("damage") + "+" + args.last('dice'))
 
         result = sheet_attack(attack, args, EmbedWithCharacter(char, name=False))
         embed = result['embed']
