@@ -96,7 +96,8 @@ class Points(commands.Cog):
         for ctx_role in ctx.guild.roles:
             if "@" + ctx_role.name == role:
                 role_in_guild = True
-                return role_in_guild
+                if role_in_guild:
+                    return role_in_guild
         ctx.send("Role: " + role + " is not a vaild role in this server. Please input a valid role.")
         return role_in_guild
 
