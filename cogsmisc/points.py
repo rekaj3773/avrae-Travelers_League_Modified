@@ -94,6 +94,7 @@ class Points(commands.Cog):
     async def isRoleInGuild(self, ctx, role):
         role_in_guild = False
         for ctx_role in ctx.guild.roles:
+            print("Context Role" + ctx_role.name)
             if "@" + ctx_role.name == role:
                 role_in_guild = True
                 if role_in_guild:
