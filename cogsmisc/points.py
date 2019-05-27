@@ -85,7 +85,7 @@ class Points(commands.Cog):
     @commands.command()
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
-        await ctx.send(role + " has acquired this many dungeon dollars: $" + str(point_total))
+        await ctx.send(role + " have acquired this many dungeon dollars: $" + str(point_total))
 
 
 def setup(bot):
