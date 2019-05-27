@@ -128,8 +128,6 @@ class SheetManager(commands.Cog):
             except AvraeException:
                 pass  # failed to eval, probably DDB nonsense
 
-        print("Doing?")
-        print(args.parsed)
         if args.last('dice', "3d6", str) is not None:
             attack["damage"] = (attack.get("damage") + "+" + args.last('dice', "3d6", str))
 
