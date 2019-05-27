@@ -35,7 +35,7 @@ class Points(commands.Cog):
         await self.handle_aliases(message)
 
     @commands.command()
-    @commands.cooldown(1, 20, BucketType.user)
+    @commands.cooldown(1, 5, BucketType.user)
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
         original_point_total = await self.getPointsByName(name)
@@ -49,6 +49,7 @@ class Points(commands.Cog):
         if points is None:
             points = 0
         else:
+            points = points["points"]
             int(points)
         return points
 
@@ -58,6 +59,11 @@ class Points(commands.Cog):
             await self.bot.mdb.points.insert_one({"name": name,"points": points})
         else:
             await self.bot.mdb.points.update_one({"name": name},{"$set": {"points": points}},upsert=True)
+
+    @commands.command()
+    async def showPoints(self, ctx, name):
+        original_point_total = await self.getPointsByName(name)
+        print(original_point_total)
 
 
 def setup(bot):
