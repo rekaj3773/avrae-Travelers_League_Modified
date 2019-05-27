@@ -98,8 +98,13 @@ class Points(commands.Cog):
                 role_in_guild = True
                 if role_in_guild:
                     return role_in_guild
-        ctx.send("Role: " + role + " is not a vaild role in this server. Please input a valid role.")
+        await ctx.send("Role: " + role + " is not a vaild role in this server. Please input a valid role.")
         return role_in_guild
+
+    @commands.command()
+    async def leaderboard(self,ctx):
+        getAllPoints()
+
 
 def setup(bot):
     bot.add_cog(Points(bot))
