@@ -36,9 +36,10 @@ class Points(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 20, BucketType.user)
-    async def addPoints(self, ctx, name, points, *, cmds: str):
+    async def addPoints(self, ctx, name, points):
+        int_points = int(points)
         get_point_total = self.getPointsByName(name)
-        get_point_total += points
+        get_point_total += int_points
         await self.savePointsByName(name, get_point_total)
 
     async def getPointsByName(self, name):
