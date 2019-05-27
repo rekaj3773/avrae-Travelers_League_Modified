@@ -130,8 +130,8 @@ class SheetManager(commands.Cog):
 
         print("Doing?")
         print(args.parsed)
-        if args.last('-dice', "3d6", str) is not None:
-            attack["damage"] = (attack.get("damage") + "+" + args.last('-dice', "3d6", str))
+        if args.last('dice', "3d6", str) is not None:
+            attack["damage"] = (attack.get("damage") + "+" + args.last('dice', "3d6", str))
 
         result = sheet_attack(attack, args, EmbedWithCharacter(char, name=False))
         embed = result['embed']
