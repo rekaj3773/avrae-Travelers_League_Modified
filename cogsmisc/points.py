@@ -38,23 +38,26 @@ class Points(commands.Cog):
     @commands.cooldown(1, 20, BucketType.user)
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
-        get_point_total = self.getPointsByName(name)
-        print(get_point_total)
-        get_point_total += int_points
-        await self.savePointsByName(name, get_point_total)
+        original_point_total = await self.getPointsByName(name)
+        print(original_point_total)
+        new_point_total = original_point_total + int_points
+        await self.savePointsByName(name, new_point_total, original_point_total)
 
     async def getPointsByName(self, name):
         # Todo:Mongo Shenanigans
-        points = await self.bot.mdb.points.find({"name": name})
+        points = await self.bot.mdb.points.find_one({"name": name})
         if points is None:
             points = 0
         else:
             int(points)
         return points
 
-    async def savePointsByName(self, name, points):
+    async def savePointsByName(self, name, points, original_points):
         # Todo:Mongo Shenanigans
-        await self.bot.mdb.points.update_one({"name": name},{"$set": {"points": points}})
+        if original_points is None:
+            await self.bot.mdb.points.insert_one({"name": name,"points": points})
+        else:
+            await self.bot.mdb.points.update_one({"name": name},{"$set": {"points": points}},upsert=True)
 
 
 def setup(bot):
