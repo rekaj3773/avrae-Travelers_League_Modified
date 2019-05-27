@@ -62,8 +62,9 @@ class Points(commands.Cog):
 
     @commands.command()
     async def showPoints(self, ctx, name):
-        original_point_total = await self.getPointsByName(name)
-        print(original_point_total)
+        point_total = await self.getPointsByName(name)
+        print(point_total)
+        await ctx.send("Sup Bitches, You got these many swag bucks: $" + point_total)
 
 
 def setup(bot):
