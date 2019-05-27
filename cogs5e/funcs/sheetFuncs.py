@@ -78,8 +78,12 @@ def sheet_attack(attack, args, embed=None):
     reroll = args.last('reroll', 0, int)
     b = args.join('b', '+')
     h = args.last('h', None, bool)
-    rh = "+" + args.last('rh', None, str)
-    rmh = "-" + args.last('rmh', None,str)
+    rh = "+" + args.last('rh', "", str)
+    rmh = "-" + args.last('rmh', "", str)
+    if rh != "":
+        rh = "+" + rh
+    if rmh != "":
+        rmh = "-" + rmh
 
     if h:
         hidden_embed = copy.copy(embed)
