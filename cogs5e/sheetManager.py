@@ -84,7 +84,7 @@ class SheetManager(commands.Cog):
         -c [damage bonus on crit]
         -rr [times to reroll]
         -mi [minimum weapon dice roll]
-        -dice [extra dice rolled]
+        -rd [extra dice rolled for damage]
         
         -resist [damage resistance]
         -immune [damage immunity]
@@ -127,8 +127,8 @@ class SheetManager(commands.Cog):
             except AvraeException:
                 pass  # failed to eval, probably DDB nonsense
 
-        if args.last('dice') is not None:
-            attack["damage"] = (attack.get("damage") + "+" + args.last('dice'))
+        if args.last('rd') is not None:
+            attack["damage"] = (attack.get("damage") + "+" + args.last('rd'))
 
         result = sheet_attack(attack, args, EmbedWithCharacter(char, name=False))
         embed = result['embed']
