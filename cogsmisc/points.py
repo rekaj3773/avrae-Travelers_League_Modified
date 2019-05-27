@@ -96,7 +96,7 @@ class Points(commands.Cog):
         for ctx_role in ctx.guild.roles:
             print("Context Role" + ctx_role.name)
             print("Word Role" + role)
-            if "<" + ctx_role.id + ">" == role:
+            if "<" + str(ctx_role.id) + ">" == role:
                 role_in_guild = True
                 if role_in_guild:
                     return role_in_guild
