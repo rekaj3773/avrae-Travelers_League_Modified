@@ -121,7 +121,6 @@ class SheetManager(commands.Cog):
         args['reroll'] = char.get_setting('reroll', 0)
         args['critdice'] = int(char.get_setting('hocrit', False)) + char.get_setting('critdice', 0)
         args['crittype'] = char.get_setting('crittype', 'default')
-        # args['extraDice'] = args.last('-dice')
         if attack.get('details') is not None:
             try:
                 attack['details'] = await char.parse_cvars(attack['details'], ctx)
