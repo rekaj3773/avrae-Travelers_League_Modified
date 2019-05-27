@@ -85,6 +85,7 @@ class SheetManager(commands.Cog):
         -rr [times to reroll]
         -mi [minimum weapon dice roll]
         -rd [extra dice rolled for damage]
+        -rh [extra dice rolled for to hit]
         
         -resist [damage resistance]
         -immune [damage immunity]

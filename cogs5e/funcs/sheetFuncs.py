@@ -78,6 +78,7 @@ def sheet_attack(attack, args, embed=None):
     reroll = args.last('reroll', 0, int)
     b = args.join('b', '+')
     h = args.last('h', None, bool)
+    rh = args.last('rh', None, str)
 
     if h:
         hidden_embed = copy.copy(embed)
@@ -102,10 +103,10 @@ def sheet_attack(attack, args, embed=None):
             formatted_d20 = format_d20(iteradv, reroll)
 
             if b:
-                toHit = roll(f"{formatted_d20}+{attack.get('attackBonus')}+{b}",
+                toHit = roll(f"{formatted_d20}+{rh}+{attack.get('attackBonus')}+{b}",
                              rollFor='To Hit', inline=True, show_blurbs=False)
             else:
-                toHit = roll(f"{formatted_d20}+{attack.get('attackBonus')}", rollFor='To Hit', inline=True,
+                toHit = roll(f"{formatted_d20}+{rh}+{attack.get('attackBonus')}", rollFor='To Hit', inline=True,
                              show_blurbs=False)
 
             try:
