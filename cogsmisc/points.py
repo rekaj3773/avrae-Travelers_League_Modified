@@ -95,6 +95,7 @@ class Points(commands.Cog):
         role_in_guild = False
         for ctx_role in ctx.guild.roles:
             print("Context Role" + ctx_role.name)
+            print("Word Role" + role)
             if "@" + ctx_role.name == role:
                 role_in_guild = True
                 if role_in_guild:
