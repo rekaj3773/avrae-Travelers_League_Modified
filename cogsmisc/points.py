@@ -38,20 +38,36 @@ class Points(commands.Cog):
     @commands.cooldown(1, 5, BucketType.user)
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
-        original_point_total = await self.getPointsByName(name)
+        original_point_total = await self.getPointsByKeyValue("name", name)
         new_point_total = original_point_total + int_points
         await self.savePointsByName(name, new_point_total, original_point_total)
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def addPointsByRole(self, ctx, role, points):
+        int_points = int(points)
+        original_point_total = await self.getPointsByKeyValue("role", role)
+        new_point_total = original_point_total + int_points
+        await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPoints(self, ctx, name, points):
         int_points = int(points)
-        original_point_total = await self.getPointsByName(name)
+        original_point_total = await self.getPointsByKeyValue("name", name)
         new_point_total = original_point_total - int_points
-        await self.savePointsByName(name, new_point_total, original_point_total)
+        await self.savePointsByKeyValue("name", name, new_point_total, original_point_total)
 
-    async def getPointsByName(self, name):
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
+    async def subtractPointsByRole(self, ctx, role, points):
+        int_points = int(points)
+        original_point_total = await self.getPointsByKeyValue("role", role)
+        new_point_total = original_point_total + int_points
+        await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
+
+    async def getPointsByKeyValue(self, key, value):
         # Todo:Mongo Shenanigans
-        points = await self.bot.mdb.points.find_one({"name": name})
+        points = await self.bot.mdb.points.find_one({key: value})
         if points is None:
             points = 0
         else:
@@ -59,17 +75,17 @@ class Points(commands.Cog):
             int(points)
         return points
 
-    async def savePointsByName(self, name, points, original_points):
+    async def savePointsByKeyValue(self, key, value, points, original_points):
         # Todo:Mongo Shenanigans
         if original_points is None:
-            await self.bot.mdb.points.insert_one({"name": name,"points": points})
+            await self.bot.mdb.points.insert_one({key: value, "points": points})
         else:
-            await self.bot.mdb.points.update_one({"name": name}, {"$set": {"points": points}}, upsert=True)
+            await self.bot.mdb.points.update_one({key: value}, {"$set": {"points": points}}, upsert=True)
 
     @commands.command()
-    async def showPoints(self, ctx, name):
-        point_total = await self.getPointsByName(name)
-        await ctx.send("Sup Bitches, you got these many dungeon dollars: $" + str(point_total))
+    async def showPoints(self, ctx, role):
+        point_total = await self.getPointsByKeyValue("role", role)
+        await ctx.send(role + " has acquired this many dungeon dollars: $" + str(point_total))
 
 
 def setup(bot):
