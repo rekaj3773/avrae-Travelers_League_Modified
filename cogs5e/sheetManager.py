@@ -121,15 +121,15 @@ class SheetManager(commands.Cog):
         args['reroll'] = char.get_setting('reroll', 0)
         args['critdice'] = int(char.get_setting('hocrit', False)) + char.get_setting('critdice', 0)
         args['crittype'] = char.get_setting('crittype', 'default')
-        args['extraDice'] = args.last('-dice')
+        # args['extraDice'] = args.last('-dice')
         if attack.get('details') is not None:
             try:
                 attack['details'] = await char.parse_cvars(attack['details'], ctx)
             except AvraeException:
                 pass  # failed to eval, probably DDB nonsense
 
-        if args['extraDice'] is not None:
-            attack.__setattr__("damage",attack.get("damage") + "+" + args['extraDice'])
+        if args.last('-dice') is not None:
+            attack.__setattr__("damage", attack.get("damage") + "+" + args['extraDice'])
 
         result = sheet_attack(attack, args, EmbedWithCharacter(char, name=False))
         embed = result['embed']
