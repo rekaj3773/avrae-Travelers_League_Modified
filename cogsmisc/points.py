@@ -46,9 +46,11 @@ class Points(commands.Cog):
     @commands.cooldown(1, 5, BucketType.user)
     async def addPointsByRole(self, ctx, role, points):
         int_points = int(points)
-        original_point_total = await self.getPointsByKeyValue("role", role)
-        new_point_total = original_point_total + int_points
-        await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
+        role_in_guild = await self.isRoleInGuild(ctx, role)
+        if role_in_guild:
+            original_point_total = await self.getPointsByKeyValue("role", role)
+            new_point_total = original_point_total + int_points
+            await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPoints(self, ctx, name, points):
@@ -61,9 +63,11 @@ class Points(commands.Cog):
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPointsByRole(self, ctx, role, points):
         int_points = int(points)
-        original_point_total = await self.getPointsByKeyValue("role", role)
-        new_point_total = original_point_total + int_points
-        await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
+        role_in_guild = await self.isRoleInGuild(ctx, role)
+        if role_in_guild:
+            original_point_total = await self.getPointsByKeyValue("role", role)
+            new_point_total = original_point_total + int_points
+            await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     async def getPointsByKeyValue(self, key, value):
         # Todo:Mongo Shenanigans
@@ -87,6 +91,14 @@ class Points(commands.Cog):
         point_total = await self.getPointsByKeyValue("role", role)
         await ctx.send(role + " have acquired this many dungeon dollars: $" + str(point_total))
 
+    async def isRoleInGuild(self, ctx, role):
+        role_in_guild = False
+        for ctx_role in ctx.guild.roles:
+            if "@" + ctx_role.name == role:
+                role_in_guild = True
+                return role_in_guild
+        ctx.send("Role: " + role + " is not a vaild role in this server. Please input a valid role.")
+        return role_in_guild
 
 def setup(bot):
     bot.add_cog(Points(bot))
