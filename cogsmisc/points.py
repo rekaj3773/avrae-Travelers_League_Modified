@@ -67,7 +67,7 @@ class Points(commands.Cog):
         role_in_guild = await self.isRoleInGuild(ctx, role)
         if role_in_guild:
             original_point_total = await self.getPointsByKeyValue("role", role)
-            new_point_total = original_point_total + int_points
+            new_point_total = original_point_total - int_points
             await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     async def getPointsByKeyValue(self, key, value):
