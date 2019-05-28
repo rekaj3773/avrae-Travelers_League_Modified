@@ -46,12 +46,13 @@ class Points(commands.Cog):
     @commands.command(name='addpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def addPointsByRole(self, ctx, role, points):
-        int_points = int(points)
-        role_in_guild = await self.isRoleInGuild(ctx, role)
-        if role_in_guild:
-            original_point_total = await self.getPointsByKeyValue("role", role)
-            new_point_total = original_point_total + int_points
-            await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
+        if "Game Masters" in ctx.message.author.roles:
+            int_points = int(points)
+            role_in_guild = await self.isRoleInGuild(ctx, role)
+            if role_in_guild:
+                original_point_total = await self.getPointsByKeyValue("role", role)
+                new_point_total = original_point_total + int_points
+                await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPoints(self, ctx, name, points):
