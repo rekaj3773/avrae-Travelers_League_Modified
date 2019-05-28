@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import BucketType, UserInputError
 from discord.ext.commands.view import StringView
+from discord.utils import get
 
 from cogs5e.funcs import scripting
 from cogs5e.funcs.scripting import ScriptingEvaluator
@@ -89,7 +90,8 @@ class Points(commands.Cog):
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
-        await ctx.send(role + " has acquired :League:" + str(point_total) + " Renown")
+        league_icon = get(self.bot.get_all_emojis(), name='League')
+        await ctx.send(role + " has acquired " + league_icon + str(point_total) + " Renown")
 
     async def isRoleInGuild(self, ctx, role):
         role_in_guild = False
