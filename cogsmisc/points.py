@@ -42,7 +42,7 @@ class Points(commands.Cog):
         new_point_total = original_point_total + int_points
         await self.savePointsByName(name, new_point_total, original_point_total)
 
-    @commands.command()
+    @commands.command(name='addpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def addPointsByRole(self, ctx, role, points):
         int_points = int(points)
@@ -59,7 +59,7 @@ class Points(commands.Cog):
         new_point_total = original_point_total - int_points
         await self.savePointsByKeyValue("name", name, new_point_total, original_point_total)
 
-    @commands.command()
+    @commands.command(name='subtractpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPointsByRole(self, ctx, role, points):
         int_points = int(points)
@@ -86,7 +86,7 @@ class Points(commands.Cog):
         else:
             await self.bot.mdb.points.update_one({key: value}, {"$set": {"points": points}}, upsert=True)
 
-    @commands.command()
+    @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
         await ctx.send(role + " have acquired this many dungeon dollars: $" + str(point_total))
