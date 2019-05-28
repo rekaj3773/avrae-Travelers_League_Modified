@@ -89,7 +89,7 @@ class Points(commands.Cog):
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
-        await ctx.send(role + " has acquired " + str(point_total) + " Renown")
+        await ctx.send(role + " has acquired :League:" + str(point_total) + " Renown")
 
     async def isRoleInGuild(self, ctx, role):
         role_in_guild = False
