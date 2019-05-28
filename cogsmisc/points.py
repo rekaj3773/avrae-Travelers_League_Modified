@@ -115,7 +115,6 @@ class Points(commands.Cog):
         await ctx.send("Role: " + role + " is not a vaild role in this server. Please input a valid role.")
         return role_in_guild
 
-    @commands.command()
     async def getAllPointDocuments(self):
         return await self.bot.mdb.points.find({"points": {"$gt": 0}}).sort('points')
 
