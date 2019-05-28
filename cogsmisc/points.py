@@ -91,7 +91,7 @@ class Points(commands.Cog):
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
-        renown_str = self.getPointTotalString(ctx, point_total)
+        renown_str = await self.getPointTotalString(ctx, point_total)
         await ctx.send(role + " has acquired " + renown_str)
 
     @commands.command(name="leaderboard")
@@ -122,7 +122,7 @@ class Points(commands.Cog):
 
     async def getAllPointDocuments(self):
         cursor = self.bot.mdb.points.find({"points": {"$gt": 0}}).sort('points')
-        return await cursor.to_list()
+        return await cursor.to_list(100)
 
     async def getPointTotalString(self, ctx, point_total):
         league_icon = get(ctx.guild.emojis, name='League')
