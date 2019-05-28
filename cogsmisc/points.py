@@ -94,8 +94,8 @@ class Points(commands.Cog):
     async def isRoleInGuild(self, ctx, role):
         role_in_guild = False
         for ctx_role in ctx.guild.roles:
-            print("Context Id: " + str(ctx_role.id) + " Word Id: " + str(role))
-            if "<" + str(ctx_role.id) + ">" == role:
+            # Make the id similar to the role string, could parse the nasty characters out of role but I'm lazy
+            if "<@&" + str(ctx_role.id) + ">" == role:
                 role_in_guild = True
                 if role_in_guild:
                     return role_in_guild
