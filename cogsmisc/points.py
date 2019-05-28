@@ -90,10 +90,19 @@ class Points(commands.Cog):
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
-        league_icon = get(ctx.guild.emojis, name='League')
-        league_icon = league_icon.__str__()
-        renown_str = league_icon + " " + str(point_total) + " Renown " + league_icon
+        renown_str = self.getPointTotalString(ctx, point_total)
         await ctx.send(role + " has acquired " + renown_str)
+
+    @commands.command(name="leaderboard")
+    async def leaderboard(self, ctx):
+        all_documents = await self.getAllPointDocuments()
+        total_string = ""
+        count = 1
+        for document in all_documents:
+            renown_str = await self.getPointTotalString(ctx, document["points"])
+            total_string += "\n " + str(count) + ". " + document["role"] + " " + renown_str
+            count = count + 1
+        await ctx.send(total_string)
 
     async def isRoleInGuild(self, ctx, role):
         role_in_guild = False
@@ -107,8 +116,14 @@ class Points(commands.Cog):
         return role_in_guild
 
     @commands.command()
-    async def leaderboard(self,ctx):
-        getAllPoints()
+    async def getAllPointDocuments(self):
+        return await self.bot.mdb.points.find({"points": {"$gt": 0}}).sort('points')
+
+    async def getPointTotalString(self, ctx, point_total):
+        league_icon = get(ctx.guild.emojis, name='League')
+        league_icon = league_icon.__str__()
+        renown_str = league_icon + " " + str(point_total) + " Renown " + league_icon
+        return renown_str
 
 
 def setup(bot):
