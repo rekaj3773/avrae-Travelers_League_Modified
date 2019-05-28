@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import BucketType, UserInputError
 from discord.ext.commands.view import StringView
+from discord.utils import get
 
 from cogs5e.funcs import scripting
 from cogs5e.funcs.scripting import ScriptingEvaluator
@@ -38,20 +39,40 @@ class Points(commands.Cog):
     @commands.cooldown(1, 5, BucketType.user)
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
-        original_point_total = await self.getPointsByName(name)
+        original_point_total = await self.getPointsByKeyValue("name", name)
         new_point_total = original_point_total + int_points
         await self.savePointsByName(name, new_point_total, original_point_total)
+
+    @commands.command(name='addpointsbyrole')
+    @commands.cooldown(1, 5, BucketType.user)
+    async def addPointsByRole(self, ctx, role, points):
+        int_points = int(points)
+        role_in_guild = await self.isRoleInGuild(ctx, role)
+        if role_in_guild:
+            original_point_total = await self.getPointsByKeyValue("role", role)
+            new_point_total = original_point_total + int_points
+            await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPoints(self, ctx, name, points):
         int_points = int(points)
-        original_point_total = await self.getPointsByName(name)
+        original_point_total = await self.getPointsByKeyValue("name", name)
         new_point_total = original_point_total - int_points
-        await self.savePointsByName(name, new_point_total, original_point_total)
+        await self.savePointsByKeyValue("name", name, new_point_total, original_point_total)
 
-    async def getPointsByName(self, name):
+    @commands.command(name='subtractpointsbyrole')
+    @commands.cooldown(1, 5, BucketType.user)
+    async def subtractPointsByRole(self, ctx, role, points):
+        int_points = int(points)
+        role_in_guild = await self.isRoleInGuild(ctx, role)
+        if role_in_guild:
+            original_point_total = await self.getPointsByKeyValue("role", role)
+            new_point_total = original_point_total + int_points
+            await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
+
+    async def getPointsByKeyValue(self, key, value):
         # Todo:Mongo Shenanigans
-        points = await self.bot.mdb.points.find_one({"name": name})
+        points = await self.bot.mdb.points.find_one({key: value})
         if points is None:
             points = 0
         else:
@@ -59,17 +80,35 @@ class Points(commands.Cog):
             int(points)
         return points
 
-    async def savePointsByName(self, name, points, original_points):
+    async def savePointsByKeyValue(self, key, value, points, original_points):
         # Todo:Mongo Shenanigans
         if original_points is None:
-            await self.bot.mdb.points.insert_one({"name": name,"points": points})
+            await self.bot.mdb.points.insert_one({key: value, "points": points})
         else:
-            await self.bot.mdb.points.update_one({"name": name}, {"$set": {"points": points}}, upsert=True)
+            await self.bot.mdb.points.update_one({key: value}, {"$set": {"points": points}}, upsert=True)
+
+    @commands.command(name="showpoints")
+    async def showPoints(self, ctx, role):
+        point_total = await self.getPointsByKeyValue("role", role)
+        league_icon = get(ctx.guild.emojis, name='League')
+        league_icon = league_icon.__str__()
+        renown_str = league_icon + " " + str(point_total) + " Renown " + league_icon
+        await ctx.send(role + " has acquired " + renown_str)
+
+    async def isRoleInGuild(self, ctx, role):
+        role_in_guild = False
+        for ctx_role in ctx.guild.roles:
+            # Make the id similar to the role string, could parse the nasty characters out of role but I'm lazy
+            if "<@&" + str(ctx_role.id) + ">" == role:
+                role_in_guild = True
+                if role_in_guild:
+                    return role_in_guild
+        await ctx.send("Role: " + role + " is not a vaild role in this server. Please input a valid role.")
+        return role_in_guild
 
     @commands.command()
-    async def showPoints(self, ctx, name):
-        point_total = await self.getPointsByName(name)
-        await ctx.send("Sup Bitches, you got these many dungeon dollars: $" + str(point_total))
+    async def leaderboard(self,ctx):
+        getAllPoints()
 
 
 def setup(bot):
