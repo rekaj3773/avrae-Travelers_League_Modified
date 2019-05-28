@@ -99,6 +99,10 @@ class Points(commands.Cog):
         total_string = ""
         count = 1
         for document in all_documents:
+            try:
+                role = document["role"]
+            except KeyError:
+                continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
             total_string += "\n " + str(count) + ". " + document["role"] + " " + renown_str
             count = count + 1
