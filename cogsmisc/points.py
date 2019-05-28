@@ -98,7 +98,7 @@ class Points(commands.Cog):
         all_documents = await self.getAllPointDocuments()
         total_string = ""
         count = 1
-        for document in all_documents:
+        for document in reversed(all_documents):
             try:
                 role = document["role"]
             except KeyError:
