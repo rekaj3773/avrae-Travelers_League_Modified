@@ -46,15 +46,13 @@ class Points(commands.Cog):
     @commands.command(name='addpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def addPointsByRole(self, ctx, role, points):
-        if "Game Master" in ctx.message.author.roles or "The Dungeon Master" in ctx.message.author.roles:
+        if self.isGameMaster(ctx):
             int_points = int(points)
             role_in_guild = await self.isRoleInGuild(ctx, role)
             if role_in_guild:
                 original_point_total = await self.getPointsByKeyValue("role", role)
                 new_point_total = original_point_total + int_points
                 await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
-        else:
-            await ctx.send("You are not authorized to do this")
 
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPoints(self, ctx, name, points):
@@ -66,12 +64,13 @@ class Points(commands.Cog):
     @commands.command(name='subtractpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPointsByRole(self, ctx, role, points):
-        int_points = int(points)
-        role_in_guild = await self.isRoleInGuild(ctx, role)
-        if role_in_guild:
-            original_point_total = await self.getPointsByKeyValue("role", role)
-            new_point_total = original_point_total + int_points
-            await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
+        if self.isGameMaster(ctx):
+            int_points = int(points)
+            role_in_guild = await self.isRoleInGuild(ctx, role)
+            if role_in_guild:
+                original_point_total = await self.getPointsByKeyValue("role", role)
+                new_point_total = original_point_total + int_points
+                await self.savePointsByKeyValue("role", role, new_point_total, original_point_total)
 
     async def getPointsByKeyValue(self, key, value):
         # Todo:Mongo Shenanigans
@@ -131,6 +130,13 @@ class Points(commands.Cog):
         league_icon = league_icon.__str__()
         renown_str = league_icon + " " + str(point_total) + " Renown " + league_icon
         return renown_str
+
+    async def isGameMaster(self,ctx):
+        if "Game Masters" in ctx.message.author.roles or "The Dungeon Master" in ctx.message.author.roles:
+            return True
+        else:
+            await ctx.send("You are not authorized to do this")
+            return False
 
 
 def setup(bot):
