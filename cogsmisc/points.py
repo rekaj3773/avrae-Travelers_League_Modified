@@ -121,7 +121,7 @@ class Points(commands.Cog):
 
     async def getAllPointDocuments(self):
         cursor = self.bot.mdb.points.find({"points": {"$gt": 0}}).sort('points')
-        return await cursor.to_list(10)
+        return await cursor.to_list()
 
     async def getPointTotalString(self, ctx, point_total):
         league_icon = get(ctx.guild.emojis, name='League')
