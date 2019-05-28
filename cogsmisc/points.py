@@ -90,7 +90,7 @@ class Points(commands.Cog):
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
         point_total = await self.getPointsByKeyValue("role", role)
-        league_icon = get(self.bot.get_all_emojis(), name='League')
+        league_icon = get(ctx.guild.emojis, name='League')
         await ctx.send(role + " has acquired " + league_icon + str(point_total) + " Renown")
 
     async def isRoleInGuild(self, ctx, role):
