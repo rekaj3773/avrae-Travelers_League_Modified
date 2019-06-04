@@ -1,9 +1,0 @@
-officialToken="";
-owner_id="Civid#9991"
-test_redis_url="redis://localhost:6379/0"
-redis_pass=""
-test_mongo_url="mongodb://localhost:27017"
-testToken="NTY0NjUxMzExNjQwMDg0NDgw.XK46fg.sYENGdZJe338zSowKljWaJ8LR6E"
-test_dicecloud_user="RobotGnome"
-test_dicecloud_pass="chicken"
-test_dicecloud_token="2Cr9hNJ9FBui9zqLpgmYH5NwQ5heiJ"
