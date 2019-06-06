@@ -41,7 +41,7 @@ class Points(commands.Cog):
     async def setRoleEmoji(self, ctx, role, emoji):
         role_in_guild = await self.isRoleInGuild(ctx, role)
         await self.saveEmojiByKeyValue("role",role,emoji)
-        role = self.getRoleByMention(role)
+        role = await self.getRoleByMention(role)
         await ctx.send(role.__str__() + "'s emoji has been set to " + emoji + ".")
 
     @commands.command()
