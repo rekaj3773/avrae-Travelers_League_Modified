@@ -117,8 +117,7 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            role = get(ctx.guild.emojis,id=role)
-            string_input = role_game_name.__str__()
+            string_input = role.__str__()
             string_input = string_input.split("-",1)[1]
             try:
                 string_input = document["emoji"] + " " + string_input
