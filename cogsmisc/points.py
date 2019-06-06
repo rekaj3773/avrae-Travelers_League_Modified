@@ -41,7 +41,7 @@ class Points(commands.Cog):
     async def setRoleEmoji(self, ctx, role, emoji):
         role_in_guild = await self.isRoleInGuild(ctx, role)
         await self.saveEmojiByKeyValue("role",role,emoji)
-        role = await self.getRoleByMention(role)
+        role = await self.getRoleByMention(ctx, role)
         await ctx.send(role.__str__() + "'s emoji has been set to " + emoji + ".")
 
     @commands.command()
@@ -119,7 +119,7 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            role = self.getRoleByMention(role)
+            role = self.getRoleByMention(ctx, role)
             string_input = role.__str__()
             string_input = string_input.split("-",1)[1]
             try:
@@ -151,7 +151,7 @@ class Points(commands.Cog):
         renown_str = league_icon + " " + str(point_total) + " Renown " + league_icon
         return renown_str
 
-    async def getRoleByMention(self,mention):
+    async def getRoleByMention(self, ctx, mention):
         role = get(ctx.guild.roles, id=int(re.sub('[<>@&]', '', mention)))
         return role
 
