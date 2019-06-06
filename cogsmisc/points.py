@@ -39,9 +39,8 @@ class Points(commands.Cog):
     @commands.cooldown(1, 5, BucketType.user)
     async def setRoleEmoji(self, ctx, role, emoji):
         role_in_guild = await self.isRoleInGuild(ctx, role)
-        print(emoji)
-        print(type(emoji))
-        await ctx.send(role + "'s emoji has been set to " + emoji + ".")
+        self.saveEmojiByKeyValue("role",role,emoji)
+        # await ctx.send(role + "'s emoji has been set to " + emoji + ".")
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
@@ -96,6 +95,10 @@ class Points(commands.Cog):
             await self.bot.mdb.points.insert_one({key: value, "points": points})
         else:
             await self.bot.mdb.points.update_one({key: value}, {"$set": {"points": points}}, upsert=True)
+
+    async def saveEmojiByKeyValue(self,key,value,emoji):
+        # Todo:Mongo Shenanigans
+        await self.bot.mdb.points.update_one({key: value}, {"$set": {"emoji": emoji}}, upsert=True)
 
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
