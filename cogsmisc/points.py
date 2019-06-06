@@ -161,6 +161,7 @@ class Points(commands.Cog):
         return role
 
     async def isGameMaster(self,ctx):
+        print(', ' . join(ctx.message.author.roles))
         if "Game Masters" in ctx.message.author.roles or "The Dungeon Master" in ctx.message.author.roles:
             return True
         else:
