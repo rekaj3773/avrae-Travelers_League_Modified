@@ -119,7 +119,7 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            role = self.getRoleByMention(ctx, role)
+            role = await self.getRoleByMention(ctx, role)
             string_input = role.__str__()
             try:
                 string_input = string_input.split("-",1)[1]
