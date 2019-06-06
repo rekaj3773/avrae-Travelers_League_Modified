@@ -37,7 +37,7 @@ class Points(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
-    async def setRoleEmoji(self, role, emoji):
+    async def setRoleEmoji(self, ctx, role, emoji):
         role_in_guild = await self.isRoleInGuild(ctx, role)
         print(emoji)
         print(type(emoji))
