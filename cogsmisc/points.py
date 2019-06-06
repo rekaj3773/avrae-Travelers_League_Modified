@@ -118,6 +118,7 @@ class Points(commands.Cog):
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
             role = get(ctx.guild.roles,id=role)
+            print(role)
             string_input = role.__str__()
             print(string_input)
             string_input = string_input.split("-",1)[1]
