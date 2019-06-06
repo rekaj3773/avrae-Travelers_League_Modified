@@ -98,7 +98,8 @@ class Points(commands.Cog):
 
     async def saveEmojiByKeyValue(self,key,value,emoji):
         # Todo:Mongo Shenanigans
-        await self.bot.mdb.points.update_one({key: value}, {"$set": {"emoji": emoji}}, upsert=True)
+        document = await self.bot.mdb.points.find_one({key: value})
+        await self.bot.mdb.points.update_one({key: value}, {"emoji": emoji, "role" : document["role"], "points" : document["points"]}, upsert=True)
 
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
@@ -117,7 +118,6 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            string_input = "";
             try:
                 string_input = document["emoji"]
             except KeyError:
