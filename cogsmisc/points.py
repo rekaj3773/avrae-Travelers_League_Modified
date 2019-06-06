@@ -41,6 +41,7 @@ class Points(commands.Cog):
         role_in_guild = await self.isRoleInGuild(ctx, role)
         print(emoji)
         print(type(emoji))
+        await ctx.send(role + "'s emoji has been set to " + emoji + ".")
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
