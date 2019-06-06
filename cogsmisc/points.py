@@ -119,7 +119,7 @@ class Points(commands.Cog):
             renown_str = await self.getPointTotalString(ctx, document["points"])
             roles = ctx.guild.roles
             for check_role in roles:
-                print("Role ID: " + check_role.id)
+                print("Role ID: " + str(check_role.id))
                 if check_role.id == role :
                     role = check_role
                     break;
