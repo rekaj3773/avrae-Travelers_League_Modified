@@ -36,7 +36,7 @@ class Points(commands.Cog):
             return
         await self.handle_aliases(message)
 
-    @commands.command()
+    @commands.command(name='setroleemoji')
     @commands.cooldown(1, 5, BucketType.user)
     async def setRoleEmoji(self, ctx, role, emoji):
         role_in_guild = await self.isRoleInGuild(ctx, role)
@@ -128,7 +128,7 @@ class Points(commands.Cog):
             try:
                 string_input = document["emoji"] + " " + string_input
             except KeyError:
-                string_input = "404 Emoji not set " + string_input
+                string_input = "404 Emoji not set, use !setroleemoji to update this for Player-" + string_input
             total_string += "\n " + str(count) + ". " + string_input + " " + renown_str
             count = count + 1
         await ctx.send(total_string)
