@@ -118,6 +118,7 @@ class Points(commands.Cog):
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
             string_input = role.__str__()
+            print(string_input)
             string_input = string_input.split("-",1)[1]
             try:
                 string_input = document["emoji"] + " " + string_input
