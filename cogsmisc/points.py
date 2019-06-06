@@ -55,7 +55,8 @@ class Points(commands.Cog):
     @commands.command(name='addpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def addPointsByRole(self, ctx, role, points):
-        if self.isGameMaster(ctx):
+        bool = await self.isGameMaster(ctx)
+        if bool:
             int_points = int(points)
             role_in_guild = await self.isRoleInGuild(ctx, role)
             if role_in_guild:
@@ -73,7 +74,8 @@ class Points(commands.Cog):
     @commands.command(name='subtractpointsbyrole')
     @commands.cooldown(1, 5, BucketType.user)
     async def subtractPointsByRole(self, ctx, role, points):
-        if self.isGameMaster(ctx):
+        bool = await self.isGameMaster(ctx)
+        if bool:
             int_points = int(points)
             role_in_guild = await self.isRoleInGuild(ctx, role)
             if role_in_guild:
