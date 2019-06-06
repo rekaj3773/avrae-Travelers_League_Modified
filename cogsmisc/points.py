@@ -161,12 +161,11 @@ class Points(commands.Cog):
         return role
 
     async def isGameMaster(self,ctx):
-        print(', ' . join(ctx.message.author.roles))
-        if "Game Masters" in ctx.message.author.roles or "The Dungeon Master" in ctx.message.author.roles:
-            return True
-        else:
-            await ctx.send("You are not authorized to do this")
-            return False
+        for role in ctx.message.author.roles:
+            if "Game Masters" == role.__str__() or "The Dungeon Master" in role.__str__():
+                return True
+        await ctx.send("You are not authorized to do this")
+        return False
 
 
 def setup(bot):
