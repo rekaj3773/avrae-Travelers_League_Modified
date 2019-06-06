@@ -117,12 +117,13 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            role_game_name = get(ctx.guild.emojis,id=role).name
-            string_input = role_game_name
+            role = get(ctx.guild.emojis,id=role)
+            string_input = role_game_name.__str__()
+            string_input = string_input.split("-",1)[1]
             try:
-                string_input += " " + document["emoji"]
+                string_input = document["emoji"] + " " + string_input
             except KeyError:
-                string_input = "Emoji not found"
+                string_input = "404 Emoji not set" + string_input
             total_string += "\n " + str(count) + ". " + string_input + " " + renown_str
             count = count + 1
         await ctx.send(total_string)
