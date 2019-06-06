@@ -98,8 +98,7 @@ class Points(commands.Cog):
 
     async def saveEmojiByKeyValue(self,key,value,emoji):
         # Todo:Mongo Shenanigans
-        document = await self.bot.mdb.points.find_one({key: value})
-        await self.bot.mdb.points.update_one({key: value}, {"emoji": emoji, "role" : document["role"], "points" : document["points"]}, upsert=True)
+        await self.bot.mdb.points.update_one({key: value}, {"$set": {"emoji": emoji}}, upsert=True)
 
     @commands.command(name="showpoints")
     async def showPoints(self, ctx, role):
