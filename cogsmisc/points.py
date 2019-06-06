@@ -118,7 +118,7 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            role = get(ctx.guild.roles, id=int(re.sub('[<>@$]','',role)))
+            role = get(ctx.guild.roles, id=int(re.sub('[<>@&]','',role)))
             # for check_role in roles:
             #     print("Role ID: " + str(check_role.id))
             #     if check_role.id == role :
