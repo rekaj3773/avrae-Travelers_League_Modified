@@ -41,7 +41,8 @@ class Points(commands.Cog):
     async def setRoleEmoji(self, ctx, role, emoji):
         role_in_guild = await self.isRoleInGuild(ctx, role)
         await self.saveEmojiByKeyValue("role",role,emoji)
-        # await ctx.send(role + "'s emoji has been set to " + emoji + ".")
+        role = self.getRoleByMention(role)
+        await ctx.send(role.__str__() + "'s emoji has been set to " + emoji + ".")
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
@@ -118,19 +119,13 @@ class Points(commands.Cog):
             except KeyError:
                 continue
             renown_str = await self.getPointTotalString(ctx, document["points"])
-            role = get(ctx.guild.roles, id=int(re.sub('[<>@&]','',role)))
-            # for check_role in roles:
-            #     print("Role ID: " + str(check_role.id))
-            #     if check_role.id == role :
-            #         role = check_role
-            #         break;
+            role = self.getRoleByMention(role)
             string_input = role.__str__()
-            print(string_input)
             string_input = string_input.split("-",1)[1]
             try:
                 string_input = document["emoji"] + " " + string_input
             except KeyError:
-                string_input = "404 Emoji not set" + string_input
+                string_input = "404 Emoji not set " + string_input
             total_string += "\n " + str(count) + ". " + string_input + " " + renown_str
             count = count + 1
         await ctx.send(total_string)
@@ -155,6 +150,10 @@ class Points(commands.Cog):
         league_icon = league_icon.__str__()
         renown_str = league_icon + " " + str(point_total) + " Renown " + league_icon
         return renown_str
+
+    async def getRoleByMention(self,mention):
+        role = get(ctx.guild.roles, id=int(re.sub('[<>@&]', '', mention)))
+        return role
 
     async def isGameMaster(self,ctx):
         if "Game Masters" in ctx.message.author.roles or "The Dungeon Master" in ctx.message.author.roles:
