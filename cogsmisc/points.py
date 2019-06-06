@@ -37,6 +37,14 @@ class Points(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 5, BucketType.user)
+    async def setRoleEmoji(self, role, emoji):
+        int_points = int(points)
+        role_in_guild = await self.isRoleInGuild(ctx, role)
+        print(emoji)
+        print(type(emoji))
+
+    @commands.command()
+    @commands.cooldown(1, 5, BucketType.user)
     async def addPoints(self, ctx, name, points):
         int_points = int(points)
         original_point_total = await self.getPointsByKeyValue("name", name)
