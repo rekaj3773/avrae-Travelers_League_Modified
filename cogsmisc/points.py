@@ -148,7 +148,7 @@ class Points(commands.Cog):
 
     async def isGameMaster(self,ctx):
         for role in ctx.message.author.roles:
-            if "Game Masters" == role.__str__() or "The Dungeon Master" in role.__str__():
+            if "Game Masters" == role.__str__() or "The Director" in role.__str__():
                 return True
         await ctx.send("You are not authorized to do this")
         return False
